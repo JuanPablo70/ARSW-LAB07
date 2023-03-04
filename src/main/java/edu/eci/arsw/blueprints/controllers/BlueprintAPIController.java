@@ -71,5 +71,37 @@ public class BlueprintAPIController {
             return new ResponseEntity<>("Error al ejecutar getBlueprintsByAuthor", HttpStatus.NOT_FOUND);
         }
     }
+
+    @RequestMapping(
+            method = RequestMethod.POST,
+            path = "/create",
+            consumes = "application/json"
+    )
+    public ResponseEntity<?> handlerPostResource(@RequestBody Blueprint bp){
+        try {
+            blueprintsServices.addNewBlueprint(bp);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (BlueprintPersistenceException ex) {
+            Logger.getLogger(BlueprintPersistenceException.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Error al ejecutar addNewBlueprint",HttpStatus.FORBIDDEN);
+        }
+
+    }
+
+    @RequestMapping(
+            method = RequestMethod.PUT,
+            path = "/update/{author}/{bpname}",
+            consumes = "application/json"
+    )
+    public ResponseEntity<?> handlerPutResource(@PathVariable String author, @PathVariable String bpname, @RequestBody Blueprint bp){
+        try {
+            blueprintsServices.updateBlueprint(author, bpname, bp);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (BlueprintPersistenceException ex) {
+            Logger.getLogger(BlueprintPersistenceException.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>("Error al ejecutar updateBlueprint",HttpStatus.FORBIDDEN);
+        }
+
+    }
 }
 

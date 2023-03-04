@@ -27,4 +27,6 @@ public interface BlueprintsPersistence {
 
     public Set<Blueprint> getAllBlueprints() throws  BlueprintPersistenceException;
 
+    public void updateBlueprint(String author, String name, Blueprint bp) throws BlueprintPersistenceException;
+
 }

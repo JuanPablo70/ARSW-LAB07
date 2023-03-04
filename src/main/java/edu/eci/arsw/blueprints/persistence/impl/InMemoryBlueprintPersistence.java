@@ -67,5 +67,10 @@ public class InMemoryBlueprintPersistence implements BlueprintsPersistence {
         return bps;
     }
 
+    @Override
+    public void updateBlueprint(String author, String name, Blueprint bp) throws BlueprintPersistenceException {
+        blueprints.put(new Tuple<>(author, name), bp);
+    }
+
 
 }

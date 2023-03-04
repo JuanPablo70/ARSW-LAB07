@@ -61,6 +61,10 @@ public class BlueprintsServices {
         return blueprints;
     }
 
+    public void updateBlueprint(String author, String name, Blueprint bp) throws BlueprintPersistenceException{
+        bpp.updateBlueprint(author, name, bp);
+    }
+
     public BlueprintsPersistence getBpp() {
         return bpp;
     }
