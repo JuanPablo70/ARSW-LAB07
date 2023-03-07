@@ -1,0 +1,9 @@
+Condiciones de carrera: Si dos usuarios hacen uso del API y uno consulta y el otro actualiza o crea un Blueprint,
+el resultado no será acorde para el usuario que está consultando.
+
+Regiones críticas: Las regiones críticas se encuentran relacionadas con las peticiones HTTP implementadas, las cuales son
+GET, POST y PUT, las cuales acceden al HashMap de la clase InMemoryBlueprintPersistence.
+
+Solución: Dado que no era recomendable sincronizar el acceso a las operaciones de persistencia, se cambió el tipo de la
+estructura de datos que almacena los blueprints de la clase InMemoryBlueprintPersistence por un ConcurrentHashMap la cual
+es Threadsafe que evita las condiciones de carrera que se identificaron.
