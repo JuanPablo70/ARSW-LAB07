@@ -27,10 +27,7 @@ public class BlueprintAPIController {
     @Autowired
     BlueprintsServices blueprintsServices;
 
-    @RequestMapping(
-            method = RequestMethod.GET,
-            produces="application/json"
-    )
+    @RequestMapping(method = RequestMethod.GET, produces="application/json")
     public ResponseEntity<?> handlerGetBlueprintResource() {
         try {
             Set<Blueprint> blueprints = blueprintsServices.getAllBlueprints();
@@ -42,10 +39,7 @@ public class BlueprintAPIController {
         }
     }
 
-    @GetMapping(
-            value = "/{author}",
-            produces="application/json"
-    )
+    @GetMapping(value = "/{author}", produces="application/json")
     public ResponseEntity<?> getAuthorBlueprints(@PathVariable String author) {
         try {
             Set<Blueprint> blueprints = blueprintsServices.getBlueprintsByAuthor(author);
@@ -57,10 +51,7 @@ public class BlueprintAPIController {
         }
     }
 
-    @GetMapping(
-            value = "/{author}/{bpname}",
-            produces="application/json"
-    )
+    @GetMapping(value = "/{author}/{bpname}", produces="application/json")
     public ResponseEntity<?> getBlueprintByAuthor(@PathVariable String author, @PathVariable String bpname) {
         try {
             Blueprint blueprint = blueprintsServices.getBlueprint(author, bpname);
@@ -72,10 +63,7 @@ public class BlueprintAPIController {
         }
     }
 
-    @RequestMapping(
-            method = RequestMethod.POST,
-            consumes = "application/json"
-    )
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<?> handlerPostResource(@RequestBody Blueprint bp){
         try {
             blueprintsServices.addNewBlueprint(bp);
@@ -87,11 +75,7 @@ public class BlueprintAPIController {
 
     }
 
-    @RequestMapping(
-            method = RequestMethod.PUT,
-            path = "/{author}/{bpname}",
-            consumes = "application/json"
-    )
+    @RequestMapping(method = RequestMethod.PUT, path = "/{author}/{bpname}", consumes = "application/json")
     public ResponseEntity<?> handlerPutResource(@PathVariable String author, @PathVariable String bpname, @RequestBody Blueprint bp){
         try {
             blueprintsServices.updateBlueprint(author, bpname, bp);
