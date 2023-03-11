@@ -10,10 +10,20 @@ var Blueprints = (function() {
         const reformattedArray = blueprints.map((e) => {
             return {
                 name: e.name,
-                puntos: e.points.length
+                points: e.points.length
             }
         });
-        return reformattedArray;
+        _mappingTable(reformattedArray);
+    };
+
+    function _mappingTable(array) {
+        $(document).ready(function(){
+            for (const key in array) {
+                const element = array[key];
+                var markup = "<tr><td>" + element.name + "</td><td>" + element.points + "</td></tr>";
+                $("#table").append(markup)
+            }
+        })
     };
 
 

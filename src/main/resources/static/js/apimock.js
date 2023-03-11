@@ -10,8 +10,7 @@ apimock=(function(){
 
 	return {
 		getBlueprintsByAuthor:function(authname,callback){
-			console.log(callback(mockdata[authname]));
-
+			callback(mockdata[authname]);
 		},
 
 		getBlueprintsByNameAndAuthor:function(authname,bpname,callback){
