@@ -1,10 +1,6 @@
 var Blueprints = (function() {
     var authorName;
 
-    var data = {
-        house: { name: 'house', points: 233 },
-        gear: { name: 'gear', points: 342 }
-    };
 
     function _mapping(blueprints) {
         const reformattedArray = blueprints.map((e) => {
@@ -16,16 +12,33 @@ var Blueprints = (function() {
         _mappingTable(reformattedArray);
     };
 
-    function _mappingTable(array) {
+    function _mappingTable(mappedBlueptint) {
         $(document).ready(function(){
-            for (const key in array) {
-                const element = array[key];
+            for (const element of mappedBlueptint) {
                 var markup = "<tr><td>" + element.name + "</td><td>" + element.points + "</td></tr>";
                 $("#table").append(markup)
             }
         })
     };
 
+    function _drawBp(blueprint) {
+        $(document).ready(function() {
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            const points = blueprint.points;
+            for (i = 0; i < points.length; i++) {
+                if (i == points.length-1) {
+                    ctx.moveTo(points[i].x, points[i].y);
+                    ctx.lineTo(points[0].x, points[0].y);
+                    ctx.stroke();
+                } else {
+                    ctx.moveTo(points[i].x, points[i].y);
+                    ctx.lineTo(points[i+1].x, points[i+1].y);
+                    ctx.stroke();
+                }
+            }
+        })
+    }
 
     return {
         setAuthorName: function(name) {
@@ -34,7 +47,9 @@ var Blueprints = (function() {
         },
         getBlueprints: function(authname, callback) {
             apimock.getBlueprintsByAuthor(authname, callback);
+            apimock.getBlueprintsByNameAndAuthor("johnconnor", "house", _drawBp);
         }
+        
     };
       
 })();
