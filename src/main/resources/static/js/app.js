@@ -62,7 +62,8 @@ var Blueprints = (function() {
             this.getBlueprints(authorName, _mapping);
         },
         getBlueprints: function(authname, callback) {
-            apimock.getBlueprintsByAuthor(authname, callback);
+            //apimock.getBlueprintsByAuthor(authname, callback);
+            apiclient.getBlueprintsByAuthor(authname, callback);
         },
         drawGraph: function (authorName, blueprint) {
             apimock.getBlueprintsByNameAndAuthor(authorName, blueprint, _drawBp);
