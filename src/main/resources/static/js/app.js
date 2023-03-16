@@ -1,6 +1,8 @@
 var Blueprints = (function() {
     
-    var authorName;
+    var authorName; 
+    var currentBlueprint;
+
 
     function _mapping(blueprints) {
         const reformattedArray = blueprints.map((e) => {
@@ -12,12 +14,12 @@ var Blueprints = (function() {
         _mappingTable(reformattedArray);
     };
 
-    function _mappingTable(mappedBlueptint) {
+    function _mappingTable(mappedBlueprint) {
         $(document).ready(function(){
             $('#h2-author').text(authorName + "'s blueprints:");
             var i = 0;
             var count = 0;
-            for (const element of mappedBlueptint) {
+            for (const element of mappedBlueprint) {
                 var view = document.createElement('button');
                 view.id = 'button'+i;
                 view.innerHTML = 'Open';
@@ -31,11 +33,13 @@ var Blueprints = (function() {
             }
             $('#h2-tpoints').text('Total user points: ' + count);
         });
-        console.log('mappedBlueptint :>> ', mappedBlueptint);
+        console.log('mappedBlueptint :>> ', mappedBlueprint);
     };
 
     function _drawBp(blueprint) {
         $(document).ready(function() {
+            currentBlueprint = blueprint;
+            console.log(currentBlueprint);
             $('#h2-cbp').text('Current blueprint: ' + blueprint.name);
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
@@ -55,6 +59,7 @@ var Blueprints = (function() {
             }
         });
     };
+    
 
     return {
         setAuthorName: function(name) {
@@ -68,7 +73,37 @@ var Blueprints = (function() {
         drawGraph: function (authorName, blueprint) {
             //apimock.getBlueprintsByNameAndAuthor(authorName, blueprint, _drawBp);
             apiclient.getBlueprintsByNameAndAuthor(authorName, blueprint, _drawBp);
-        }
+        },
+        init:function(){
+      
+            console.info('initialized');
+            var c = document.getElementById("myCanvas");
+            
+            //if PointerEvent is suppported by the browser:
+            if(window.PointerEvent) {
+              c.addEventListener("pointerdown", function(event){
+                console.log(currentBlueprint);
+                if (currentBlueprint !== undefined) {
+                    var coords = c.getBoundingClientRect();
+                    var x = Math.round(event.pageX - coords.left);
+                    var y = Math.round(event.pageY - coords.top);
+                    //alert('pointerdown at '+ Math.round(event.pageX - coords.left) +','+ Math.round(event.pageY - coords.top));
+                    currentBlueprint.points.push({x, y});
+                    console.log('Después de añadir los puntos: ');
+                    console.log(currentBlueprint)
+                }
+              });
+            }
+            else {
+              c.addEventListener("mousedown", function(event){
+                console.log(currentBlueprint);
+                if (currentBlueprint !== undefined) {
+                    var coords = c.getBoundingClientRect();
+                    alert('pointerdown at '+ Math.round(event.pageX - coords.left) +','+ Math.round(event.pageY - coords.top));  
+                }
+                });
+            }
+          }
     };
       
 })();

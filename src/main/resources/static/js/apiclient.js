@@ -2,13 +2,13 @@ apiclient=(function(){
     
     function _getAllBlueprints(authorName){
         const json = $.ajax({url: "blueprints/"+authorName, type: "GET", dataType: "json", async: false});
-        console.log(json.responseJSON);
+        //console.log(json.responseJSON);
         return json.responseJSON;
     }
 
     function _getBluprint(authorName, bpname){
         const json = $.ajax({url: "blueprints/"+authorName+"/"+bpname, type: "GET", dataType: "json", async: false});
-        console.log(json.responseJSON);
+        //console.log(json.responseJSON);
         return json.responseJSON;
     }
 
