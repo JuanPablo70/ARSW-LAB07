@@ -33,6 +33,7 @@ var Blueprints = (function() {
                 $("#button"+i).click(function() {
                     Blueprints.drawGraph(authorName, element.name);
                 });
+                $("#button"+i).addClass("btn btn-dark");
                 i++;
                 count += element.points;
             }
@@ -75,7 +76,8 @@ var Blueprints = (function() {
 
     return {
         setAuthorName: function(name) {
-            authorName = name.value;
+            authorName = (name.value) == "" ? "juan" : name.value;
+            $("#author").val(authorName);
             this.getBlueprints(authorName, _mapping);
         },
         getBlueprints: function(authname, callback) {
