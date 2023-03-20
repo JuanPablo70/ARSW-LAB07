@@ -74,7 +74,11 @@ var Blueprints = (function() {
             //apimock.getBlueprintsByNameAndAuthor(authorName, blueprint, _drawBp);
             apiclient.getBlueprintsByNameAndAuthor(authorName, blueprint, _drawBp);
         },
-        init:function(){
+        updateBlueprint: function () {
+            apiclient.putBlueprint(currentBlueprint, _drawBp).then(this.getBlueprints(authorName, _mapping));
+            
+        },
+        init: function(){
       
             console.info('initialized');
             var c = document.getElementById("myCanvas");

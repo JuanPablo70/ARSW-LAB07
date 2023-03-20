@@ -12,6 +12,24 @@ apiclient=(function(){
         return json.responseJSON;
     }
 
+    function _updateBlueprint(blueprint){
+        const putPromise = $.ajax({
+            url: "/blueprints/"+blueprint.author+"/"+blueprint.name,
+            type: 'PUT',
+            data: JSON.stringify(blueprint),
+            contentType: "application/json"
+        });
+        putPromise.then(
+            function () {
+                console.log("OK PUT");
+            },
+            function () {
+                console.log("ERROR PUT");
+            }
+        );
+        return putPromise;
+    }
+
 	return {
 		getBlueprintsByAuthor:function(authname,callback){
 			callback(_getAllBlueprints(authname));
@@ -19,6 +37,13 @@ apiclient=(function(){
 
 		getBlueprintsByNameAndAuthor:function(authname,bpname,callback){
 			callback(_getBluprint(authname, bpname));
-		}
+		},
+        putBlueprint:function(blueprint, callback){
+            //callback(_updateBlueprint(blueprint));
+            return new Promise((resolve, reject) => {
+                resolve(_updateBlueprint(blueprint).then(callback(blueprint)));
+            });
+            //callback(blueprint);
+        }
 	}	
 })();
