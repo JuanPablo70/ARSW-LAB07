@@ -86,5 +86,16 @@ public class BlueprintAPIController {
         }
 
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, path = "/{author}/{bpname}", consumes = "application/json")
+    public ResponseEntity<?> handlerPutResource(@PathVariable String author, @PathVariable String bpname) {
+        try {
+            blueprintsServices.deleteBlueprint(author, bpname);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (BlueprintPersistenceException ex) {
+            Logger.getLogger(BlueprintPersistenceException.class.getName()).log(Level.SEVERE, null, ex);
+            return new ResponseEntity<>(ex.getMessage(),HttpStatus.FORBIDDEN);
+        }
+    }
 }
 

@@ -29,4 +29,6 @@ public interface BlueprintsPersistence {
 
     public void updateBlueprint(String author, String name, Blueprint bp) throws BlueprintPersistenceException;
 
+    public void deleteBlueprint(String author, String name) throws BlueprintPersistenceException;
+
 }
