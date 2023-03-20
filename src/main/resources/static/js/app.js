@@ -90,7 +90,8 @@ var Blueprints = (function() {
                     //alert('pointerdown at '+ Math.round(event.pageX - coords.left) +','+ Math.round(event.pageY - coords.top));
                     currentBlueprint.points.push({x, y});
                     console.log('Después de añadir los puntos: ');
-                    console.log(currentBlueprint)
+                    console.log(currentBlueprint);
+                    _drawBp(currentBlueprint);
                 }
               });
             }
@@ -99,7 +100,12 @@ var Blueprints = (function() {
                 console.log(currentBlueprint);
                 if (currentBlueprint !== undefined) {
                     var coords = c.getBoundingClientRect();
-                    alert('pointerdown at '+ Math.round(event.pageX - coords.left) +','+ Math.round(event.pageY - coords.top));  
+                    var x = Math.round(event.pageX - coords.left);
+                    var y = Math.round(event.pageY - coords.top);
+                    //alert('pointerdown at '+ Math.round(event.pageX - coords.left) +','+ Math.round(event.pageY - coords.top));
+                    currentBlueprint.points.push({x, y});
+                    console.log('Después de añadir los puntos: ');
+                    console.log(currentBlueprint);
                 }
                 });
             }
