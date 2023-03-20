@@ -19,13 +19,13 @@
   <body onload="Blueprints.init()">
     
     <h1>Blueprints</h1>
-    <div class="author">
+    <div class="author margin">
       <label for="author">Author:</label>
       <input id="author" value="juan">
       <button onclick="Blueprints.setAuthorName(author)">Get blueprints</button>
     </div>
-    <div class="contenedor">
-      <div>
+    <div class="contenedor margin">
+      <div class="margin">
         <h2 id="h2-author">blueprints:</h2>
         <table id="table">
           <tr id="firstRow">
@@ -36,10 +36,13 @@
         </table>
         <h2 id="h2-tpoints"></h2>
       </div>
-      <div>
+      <div class="canvas margin">
         <h2 id="h2-cbp">Current blueprint:</h2>
         <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
-        <button onclick="Blueprints.updateBlueprint()">Save/Update</button>
+        <div class="buttons">
+          <button onclick="Blueprints.updateBlueprint()">Save/Update</button>
+          <button onclick="Blueprints.newBlueprint()">Create new blueprint</button>
+        </div>
       </div>
       
     </div>

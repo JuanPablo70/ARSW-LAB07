@@ -30,6 +30,15 @@ apiclient=(function(){
         return putPromise;
     }
 
+    function _postBlueprint(blueprint) {
+        return $.ajax({
+            url: "/blueprints",
+            type: 'POST',
+            data: JSON.stringify(blueprint),
+            contentType: "application/json"
+        });
+    }
+
 	return {
 		getBlueprintsByAuthor:function(authname,callback){
 			callback(_getAllBlueprints(authname).responseJSON);
@@ -40,7 +49,12 @@ apiclient=(function(){
 		},
         putBlueprint:function(blueprint, callback){
             _updateBlueprint(blueprint).then(() => {
-                callback(_getAllBlueprints(blueprint.author).responseJSON)
+                callback(_getAllBlueprints(blueprint.author).responseJSON);
+            });
+        },
+        createBlueprint:function(blueprint, callback) {
+            _postBlueprint(blueprint).then(() => {
+                callback(_getAllBlueprints(blueprint.author).responseJSON);
             });
         }
 	}	

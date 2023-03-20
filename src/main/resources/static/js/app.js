@@ -22,7 +22,6 @@ var Blueprints = (function() {
             var count = 0;
             var table = $("#table");
             var firstRow = $("#firstRow");
-            console.log('firstRow :>> ', firstRow.html());
             table.html("");
             table.append(firstRow);
             for (const element of mappedBlueprint) {
@@ -44,24 +43,31 @@ var Blueprints = (function() {
 
     function _drawBp(blueprint) {
         $(document).ready(function() {
-            currentBlueprint = blueprint;
-            console.log(currentBlueprint);
-            $('#h2-cbp').text('Current blueprint: ' + blueprint.name);
             var c = document.getElementById("myCanvas");
             var ctx = c.getContext("2d");
-            ctx.clearRect(0, 0, c.width, c.height);
-            ctx.beginPath();
-            const points = blueprint.points;
-            for (i = 0; i < points.length; i++) {
-                if (i == points.length-1) {
-                    ctx.moveTo(points[i].x, points[i].y);
-                    ctx.lineTo(points[0].x, points[0].y);
-                    ctx.stroke();
-                } else {
-                    ctx.moveTo(points[i].x, points[i].y);
-                    ctx.lineTo(points[i+1].x, points[i+1].y);
-                    ctx.stroke();
+            if (blueprint != null) {
+                currentBlueprint = blueprint;
+                console.log(currentBlueprint);
+                $('#h2-cbp').text('Current blueprint: ' + blueprint.name);
+                ctx.clearRect(0, 0, c.width, c.height);
+                ctx.beginPath();
+                const points = blueprint.points;
+                for (i = 0; i < points.length; i++) {
+                    if (i == points.length-1) {
+                        ctx.moveTo(points[i].x, points[i].y);
+                        ctx.lineTo(points[0].x, points[0].y);
+                        ctx.stroke();
+                    } else {
+                        ctx.moveTo(points[i].x, points[i].y);
+                        ctx.lineTo(points[i+1].x, points[i+1].y);
+                        ctx.stroke();
+                    }
                 }
+            } else {
+                ctx.clearRect(0, 0, c.width, c.height);
+                ctx.beginPath();
+                currentBlueprint = blueprint;
+                $('#h2-cbp').text('Current blueprint: ');
             }
         });
     };
@@ -83,6 +89,12 @@ var Blueprints = (function() {
         updateBlueprint: function () {
             apiclient.putBlueprint(currentBlueprint, _mapping);
             
+        },
+        newBlueprint: function() {
+            let name = prompt("Please enter your name:", currentBlueprint.name + Math.round(Math.random(99)*100), 0);
+            currentBlueprint.name = name;
+            _drawBp(null);
+            apiclient.createBlueprint(currentBlueprint, _mapping);
         },
         init: function(){
       

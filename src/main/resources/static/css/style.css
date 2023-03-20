@@ -2,7 +2,7 @@
     font-family: 'Tilt Neon', cursive;
 }
 
-div {
+.margin {
     margin-top: 20px;
     margin-bottom: 10px;
 }
@@ -32,10 +32,25 @@ th, td {
     padding: 15px;
 }
 
+.canvas {
+    display: flex;
+    flex-direction: column;
+}
+
 .contenedor {
     display: flex;
 }
 
-.contenedor div {
+.contenedor .margin {
     margin-left: 75px;
+}
+
+.buttons {
+    margin-top: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+.buttons button {
+    margin: 2px;
 }
