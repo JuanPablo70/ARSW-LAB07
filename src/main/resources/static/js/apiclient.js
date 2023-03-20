@@ -38,11 +38,10 @@ apiclient=(function(){
 		getBlueprintsByNameAndAuthor:function(authname,bpname,callback){
 			callback(_getBluprint(authname, bpname).responseJSON);
 		},
-        putBlueprint:function(blueprint, callback0, callback1){
+        putBlueprint:function(blueprint, callback){
             _updateBlueprint(blueprint).then(() => {
-                callback1(_getAllBlueprints(blueprint.author).responseJSON)
-            })
-            .then(callback0(blueprint));
+                callback(_getAllBlueprints(blueprint.author).responseJSON)
+            });
         }
 	}	
 })();

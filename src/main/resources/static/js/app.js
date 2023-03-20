@@ -81,7 +81,7 @@ var Blueprints = (function() {
             apiclient.getBlueprintsByNameAndAuthor(authorName, blueprint, _drawBp);
         },
         updateBlueprint: function () {
-            apiclient.putBlueprint(currentBlueprint, _drawBp, _mapping);
+            apiclient.putBlueprint(currentBlueprint, _mapping);
             
         },
         init: function(){
@@ -92,30 +92,25 @@ var Blueprints = (function() {
             //if PointerEvent is suppported by the browser:
             if(window.PointerEvent) {
               c.addEventListener("pointerdown", function(event){
-                console.log(currentBlueprint);
                 if (currentBlueprint !== undefined) {
                     var coords = c.getBoundingClientRect();
                     var x = Math.round(event.pageX - coords.left);
                     var y = Math.round(event.pageY - coords.top);
                     //alert('pointerdown at '+ Math.round(event.pageX - coords.left) +','+ Math.round(event.pageY - coords.top));
                     currentBlueprint.points.push({x, y});
-                    console.log('Después de añadir los puntos: ');
-                    console.log(currentBlueprint);
                     _drawBp(currentBlueprint);
                 }
               });
             }
             else {
               c.addEventListener("mousedown", function(event){
-                console.log(currentBlueprint);
                 if (currentBlueprint !== undefined) {
                     var coords = c.getBoundingClientRect();
                     var x = Math.round(event.pageX - coords.left);
                     var y = Math.round(event.pageY - coords.top);
                     //alert('pointerdown at '+ Math.round(event.pageX - coords.left) +','+ Math.round(event.pageY - coords.top));
                     currentBlueprint.points.push({x, y});
-                    console.log('Después de añadir los puntos: ');
-                    console.log(currentBlueprint);
+                    _drawBp(currentBlueprint);
                 }
                 });
             }
