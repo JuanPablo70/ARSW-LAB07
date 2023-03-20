@@ -39,6 +39,14 @@ apiclient=(function(){
         });
     }
 
+    function _deleteBlueprint(blueprint) {
+        return $.ajax({
+            url: "/blueprints/"+blueprint.author+"/"+blueprint.name,
+            type: 'DELETE',
+            contentType: "application/json"
+        });
+    }
+
 	return {
 		getBlueprintsByAuthor:function(authname,callback){
 			callback(_getAllBlueprints(authname).responseJSON);
@@ -54,6 +62,11 @@ apiclient=(function(){
         },
         createBlueprint:function(blueprint, callback) {
             _postBlueprint(blueprint).then(() => {
+                callback(_getAllBlueprints(blueprint.author).responseJSON);
+            });
+        },
+        deleteBlueprint:function(blueprint, callback) {
+            _deleteBlueprint(blueprint).then(() => {
                 callback(_getAllBlueprints(blueprint.author).responseJSON);
             });
         }

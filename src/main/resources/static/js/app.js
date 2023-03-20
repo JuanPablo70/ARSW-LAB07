@@ -78,6 +78,7 @@ var Blueprints = (function() {
         setAuthorName: function(name) {
             authorName = (name.value) == "" ? "juan" : name.value;
             $("#author").val(authorName);
+            _drawBp(null);
             this.getBlueprints(authorName, _mapping);
         },
         getBlueprints: function(authname, callback) {
@@ -90,13 +91,16 @@ var Blueprints = (function() {
         },
         updateBlueprint: function () {
             apiclient.putBlueprint(currentBlueprint, _mapping);
-            
         },
         newBlueprint: function() {
             let name = prompt("Please enter your name:", currentBlueprint.name + Math.round(Math.random(99)*100), 0);
             currentBlueprint.name = name;
             _drawBp(null);
             apiclient.createBlueprint(currentBlueprint, _mapping);
+        },
+        deleteBlueprint: function() {
+            _drawBp(null);
+            apiclient.deleteBlueprint(currentBlueprint, _mapping);
         },
         init: function(){
       
