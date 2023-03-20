@@ -5,6 +5,7 @@ var Blueprints = (function() {
 
 
     function _mapping(blueprints) {
+        console.log('blueprints:>> ', blueprints);
         const reformattedArray = blueprints.map((e) => {
             return {
                 name: e.name,
@@ -19,6 +20,11 @@ var Blueprints = (function() {
             $('#h2-author').text(authorName + "'s blueprints:");
             var i = 0;
             var count = 0;
+            var table = $("#table");
+            var firstRow = $("#firstRow");
+            console.log('firstRow :>> ', firstRow.html());
+            table.html("");
+            table.append(firstRow);
             for (const element of mappedBlueprint) {
                 var view = document.createElement('button');
                 view.id = 'button'+i;
@@ -33,7 +39,7 @@ var Blueprints = (function() {
             }
             $('#h2-tpoints').text('Total user points: ' + count);
         });
-        console.log('mappedBlueptint :>> ', mappedBlueprint);
+        //console.log('mappedBlueptint :>> ', mappedBlueprint);
     };
 
     function _drawBp(blueprint) {
@@ -75,7 +81,7 @@ var Blueprints = (function() {
             apiclient.getBlueprintsByNameAndAuthor(authorName, blueprint, _drawBp);
         },
         updateBlueprint: function () {
-            apiclient.putBlueprint(currentBlueprint, _drawBp).then(this.getBlueprints(authorName, _mapping));
+            apiclient.putBlueprint(currentBlueprint, _drawBp, _mapping);
             
         },
         init: function(){
